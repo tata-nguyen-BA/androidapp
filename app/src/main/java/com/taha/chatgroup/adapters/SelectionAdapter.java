@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.taha.chatgroup.R;
+import com.taha.chatgroup.database.entity.ContactEntity;
 import com.taha.chatgroup.models.Contact;
 
 import java.util.ArrayList;
@@ -18,15 +19,30 @@ import java.util.List;
 public class SelectionAdapter
         extends RecyclerView.Adapter<SelectionAdapter.ViewHolder> {
 
-    private final List<Contact> contacts;
+    private List<Contact> contacts;
+    private List<ContactEntity> contactEntities;
     private final List<Contact> selectedContacts = new ArrayList<>();
+    private final List<ContactEntity> selectedContactEntities = new ArrayList<>();
 
     public SelectionAdapter(List<Contact> contacts) {
         this.contacts = contacts;
+        this.contactEntities = new ArrayList<>();
+    }
+
+    public void updateContacts(List<Contact> contacts, List<ContactEntity> entities) {
+        this.contacts = contacts;
+        this.contactEntities = entities;
+        selectedContacts.clear();
+        selectedContactEntities.clear();
+        notifyDataSetChanged();
     }
 
     public List<Contact> getSelectedContacts() {
         return selectedContacts;
+    }
+
+    public List<ContactEntity> getSelectedContactEntities() {
+        return selectedContactEntities;
     }
 
     @Override
@@ -39,14 +55,25 @@ public class SelectionAdapter
     @Override
     public void onBindViewHolder(ViewHolder holder, int pos) {
         Contact c = contacts.get(pos);
+        ContactEntity entity = contactEntities.size() > pos ? contactEntities.get(pos) : null;
+        
         holder.tvName.setText(c.getName());
         holder.tvPhone.setText(c.getPhone());
 
         holder.checkBox.setOnCheckedChangeListener(null);
         holder.checkBox.setChecked(selectedContacts.contains(c));
         holder.checkBox.setOnCheckedChangeListener((cb, checked) -> {
-            if (checked) selectedContacts.add(c);
-            else         selectedContacts.remove(c);
+            if (checked) {
+                selectedContacts.add(c);
+                if (entity != null) {
+                    selectedContactEntities.add(entity);
+                }
+            } else {
+                selectedContacts.remove(c);
+                if (entity != null) {
+                    selectedContactEntities.remove(entity);
+                }
+            }
         });
     }
 

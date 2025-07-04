@@ -4,6 +4,6 @@
 
     <item
         android:id="@+id/action_create_group"
-        android:title="Tạo nhóm"
+        android:title="@string/create_group"
         app:showAsAction="never"/>
 </menu>

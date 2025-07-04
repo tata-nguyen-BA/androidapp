@@ -25,7 +25,7 @@
                 android:id="@+id/tvContactName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên"
+                android:text="@string/member_name_placeholder"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
@@ -33,7 +33,7 @@
                 android:id="@+id/tvContactPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0123456789"
+                android:text="@string/phone_placeholder"
                 android:textSize="14sp"/>
         </LinearLayout>
 

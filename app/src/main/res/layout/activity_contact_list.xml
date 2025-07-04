@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="Danh bạ"
+        app:title="@string/contact_list_title"
         app:titleTextColor="@android:color/white"/>
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:id="@+id/tvGroupName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nhóm: "
+            android:text="@string/group_prefix"
             android:textSize="18sp"
             android:visibility="gone"
             android:paddingBottom="8dp"/>

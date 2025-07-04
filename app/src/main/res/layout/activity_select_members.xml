@@ -10,7 +10,7 @@
         android:id="@+id/etGroupName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập tên nhóm"
+        android:hint="@string/group_name_hint"
         android:padding="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,6 +24,6 @@
         android:id="@+id/btnCreateGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tạo nhóm"
+        android:text="@string/create_group_button"
         android:layout_marginTop="8dp"/>
 </LinearLayout>

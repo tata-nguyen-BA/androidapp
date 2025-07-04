@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">chatgroup</string>
+    <string name="app_name">Nhóm Chat</string>
+    <string name="contact_list_title">Danh bạ</string>
+    <string name="create_group">Tạo nhóm</string>
+    <string name="group_name_hint">Nhập tên nhóm</string>
+    <string name="create_group_button">Tạo nhóm</string>
+    <string name="please_enter_group_name">Vui lòng nhập tên nhóm</string>
+    <string name="please_select_members">Vui lòng chọn ít nhất một thành viên</string>
+    <string name="group_prefix">Nhóm: </string>
+    <string name="member_name_placeholder">Tên</string>
+    <string name="phone_placeholder">0123456789</string>
+    <string name="select_members_title">Chọn thành viên</string>
+    <string name="welcome_message">Chào mừng! Nhấn menu để tạo nhóm mới</string>
+    <string name="group_created_success">Nhóm được tạo thành công!</string>
+    <string name="sample_group_name">Nhóm mẫu</string>
 </resources>

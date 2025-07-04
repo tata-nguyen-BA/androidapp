@@ -45,32 +45,36 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
         holder.tvName.setText(group.getGroupName());
         
         // Get contacts for this group and display member info
-        if (holder.itemView.getContext() instanceof LifecycleOwner) {
-            groupRepository.getContactsForGroup(group.getId()).observe(
-                (LifecycleOwner) holder.itemView.getContext(), 
-                new Observer<List<ContactEntity>>() {
-                    @Override
-                    public void onChanged(List<ContactEntity> contactEntities) {
-                        if (contactEntities != null && !contactEntities.isEmpty()) {
-                            int memberCount = contactEntities.size();
-                            StringBuilder memberInfo = new StringBuilder();
-                            memberInfo.append(memberCount).append(" thành viên: ");
-                            
-                            for (int i = 0; i < Math.min(contactEntities.size(), 2); i++) {
-                                if (i > 0) memberInfo.append(", ");
-                                memberInfo.append(contactEntities.get(i).getName());
+        try {
+            if (holder.itemView.getContext() instanceof LifecycleOwner) {
+                groupRepository.getContactsForGroup(group.getId()).observe(
+                    (LifecycleOwner) holder.itemView.getContext(), 
+                    new Observer<List<ContactEntity>>() {
+                        @Override
+                        public void onChanged(List<ContactEntity> contactEntities) {
+                            if (contactEntities != null && !contactEntities.isEmpty()) {
+                                int memberCount = contactEntities.size();
+                                StringBuilder memberInfo = new StringBuilder();
+                                memberInfo.append(memberCount).append(" thành viên: ");
+                                
+                                for (int i = 0; i < Math.min(contactEntities.size(), 2); i++) {
+                                    if (i > 0) memberInfo.append(", ");
+                                    memberInfo.append(contactEntities.get(i).getName());
+                                }
+                                if (contactEntities.size() > 2) {
+                                    memberInfo.append("...");
+                                }
+                                holder.tvPhone.setText(memberInfo.toString());
+                            } else {
+                                holder.tvPhone.setText("Không có thành viên");
                             }
-                            if (contactEntities.size() > 2) {
-                                memberInfo.append("...");
-                            }
-                            holder.tvPhone.setText(memberInfo.toString());
-                        } else {
-                            holder.tvPhone.setText("Không có thành viên");
                         }
-                    }
-                });
-        } else {
-            holder.tvPhone.setText("Đang tải...");
+                    });
+            } else {
+                holder.tvPhone.setText("Đang tải...");
+            }
+        } catch (Exception e) {
+            holder.tvPhone.setText("Lỗi tải dữ liệu");
         }
     }
 

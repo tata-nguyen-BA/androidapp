@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +56,12 @@ public class ContactListActivity extends AppCompatActivity {
                     REQUEST_SELECT_MEMBERS
             );
             return true;
+        } else if (item.getItemId() == R.id.action_delete_group) {
+            deleteGroup();
+            return true;
+        } else if (item.getItemId() == R.id.action_edit_group) {
+            editGroup();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -70,5 +77,20 @@ public class ContactListActivity extends AppCompatActivity {
                 memberAdapter.setMembers(group.getMembers());
             }
         }
+    }
+
+    private void deleteGroup() {
+        tvGroupName.setVisibility(TextView.GONE);
+        memberAdapter.setMembers(new ArrayList<>());
+        Toast.makeText(this, "Đã xóa nhóm", Toast.LENGTH_SHORT).show();
+    }
+
+    private void editGroup() {
+        // Navigate to SelectMembersActivity for editing the current group
+        startActivityForResult(
+                new Intent(this, SelectMembersActivity.class),
+                REQUEST_SELECT_MEMBERS
+        );
+        Toast.makeText(this, "Chỉnh sửa nhóm", Toast.LENGTH_SHORT).show();
     }
 }

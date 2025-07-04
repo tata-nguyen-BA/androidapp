@@ -12,11 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.taha.chatgroup.adapters.ContactAdapter;
 import com.taha.chatgroup.adapters.MemberAdapter;
+import com.taha.chatgroup.models.Contact;
 import com.taha.chatgroup.models.Group;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ContactListActivity extends AppCompatActivity {
     private static final int REQUEST_SELECT_MEMBERS = 1;
@@ -24,6 +28,7 @@ public class ContactListActivity extends AppCompatActivity {
     private TextView tvGroupName;
     private RecyclerView rvMembers;
     private MemberAdapter memberAdapter;
+    private ContactAdapter contactAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +42,21 @@ public class ContactListActivity extends AppCompatActivity {
         tvGroupName = findViewById(R.id.tvGroupName);
         rvMembers   = findViewById(R.id.rvMembers);
         rvMembers.setLayoutManager(new LinearLayoutManager(this));
+        
+        // Initialize adapters
         memberAdapter = new MemberAdapter(new ArrayList<>());
-        rvMembers.setAdapter(memberAdapter);
+        
+        // Hardcoded contact list for initial display
+        List<Contact> contacts = Arrays.asList(
+                new Contact("Thảo", "0123456789"),
+                new Contact("Nam",  "0987654321"),
+                new Contact("Tín",  "0345678912"),
+                new Contact("Lan",  "0912345678")
+        );
+        contactAdapter = new ContactAdapter(contacts);
+        
+        // Show contact list initially
+        rvMembers.setAdapter(contactAdapter);
     }
 
     @Override
@@ -67,6 +85,8 @@ public class ContactListActivity extends AppCompatActivity {
             if (group != null) {
                 tvGroupName.setText("Nhóm: " + group.getGroupName());
                 tvGroupName.setVisibility(TextView.VISIBLE);
+                // Switch to member adapter to show group members
+                rvMembers.setAdapter(memberAdapter);
                 memberAdapter.setMembers(group.getMembers());
             }
         }

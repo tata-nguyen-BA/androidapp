@@ -3,8 +3,9 @@ package com.taha.chatgroup;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,8 @@ import com.taha.chatgroup.models.Group;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SelectMembersActivity extends AppCompatActivity {
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
@@ -90,14 +93,13 @@ public class SelectMembersActivity extends AppCompatActivity {
         }
         rvContacts.setVisibility(View.GONE);
 
-        new AsyncTask<Void, Void, List<Contact>>() {
-            @Override
-            protected List<Contact> doInBackground(Void... voids) {
-                return ContactProvider.getDeviceContacts(SelectMembersActivity.this);
-            }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler mainHandler = new Handler(Looper.getMainLooper());
 
-            @Override
-            protected void onPostExecute(List<Contact> contacts) {
+        executor.execute(() -> {
+            List<Contact> contacts = ContactProvider.getDeviceContacts(SelectMembersActivity.this);
+            
+            mainHandler.post(() -> {
                 if (progressBar != null) {
                     progressBar.setVisibility(View.GONE);
                 }
@@ -110,8 +112,8 @@ public class SelectMembersActivity extends AppCompatActivity {
                     selectionAdapter = new SelectionAdapter(contacts);
                     rvContacts.setAdapter(selectionAdapter);
                 }
-            }
-        }.execute();
+            });
+        });
     }
 
     private void loadFallbackContacts() {

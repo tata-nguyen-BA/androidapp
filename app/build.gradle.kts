@@ -43,5 +43,10 @@ dependencies {
     implementation(libs.recyclerview)
     implementation(libs.constraintlayout)
     implementation ("androidx.cardview:cardview:1.0.0")
+    
+    // Room dependencies
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    implementation(libs.room.ktx)
 
 }

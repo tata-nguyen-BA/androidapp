@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_create_group"
-        android:title="Tạo nhóm"
-        app:showAsAction="never"/>
+        android:id="@+id/menu_create_group"
+        android:title="Tạo nhóm mới" />
+    <item
+        android:id="@+id/menu_edit_group"
+        android:title="Sửa nhóm" />
+    <item
+        android:id="@+id/menu_delete_group"
+        android:title="Xóa nhóm" />
 </menu>

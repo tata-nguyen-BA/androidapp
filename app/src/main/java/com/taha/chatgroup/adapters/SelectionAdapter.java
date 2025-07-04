@@ -55,6 +55,18 @@ public class SelectionAdapter
         return contacts.size();
     }
 
+    public void clearSelections() {
+        selectedContacts.clear();
+        notifyDataSetChanged();
+    }
+
+    public void selectContact(Contact contact) {
+        if (contacts.contains(contact) && !selectedContacts.contains(contact)) {
+            selectedContacts.add(contact);
+            notifyDataSetChanged();
+        }
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvPhone;
         CheckBox checkBox;
